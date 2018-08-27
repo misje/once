@@ -135,9 +135,15 @@ namespace Helper
 	 template<int... I>
 		 struct Sequence {};
 	 template <int N, int... I>
-		 struct MakeSequnce : MakeSequnce<N - 1, N - 1, I...> {};
+		 struct MakeSequnceHelper : MakeSequnceHelper<N - 1, N - 1, I...> {};
 	 template<int... I>
-		 struct MakeSequnce<0, I...> : Sequence<I...> {};
+		 struct MakeSequnceHelper<0, I...> : Sequence<I...> {};
+	 /* This extra layer prevents a long recursion caused by attempting to use
+	  * N as a negative number (or a large number if an unsigned integer were
+	  * used in the template instead): */
+	 template<int N, typename Enable = void> struct MakeSequnce{};
+	 template<int N>
+		 struct MakeSequnce<N, typename std::enable_if<N >= 0>::type> : MakeSequnceHelper<N> {};
 }
 
 template<typename Func, typename Signal, typename Enable = void>
