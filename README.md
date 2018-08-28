@@ -51,3 +51,10 @@ QMetaObject::Connection Once::connect(const QObject *sender, Signal signal, int
       callCount, const QObject *receiver, Slot slot, Qt::ConnectionType type =
       Qt::AutoConnection)
 ```
+
+## How to use
+Include once.h in your project and use a compiler that supports C++11 (or
+higher). Use `Once::connect` as you would use `QObject::connect`. If you need
+to disconnect the slot/functor/signal, disconnect the returned
+`QMetaObject::Connection` with `static bool QObject::disconnect(const
+QMetaObject::Connection &connection)`.
