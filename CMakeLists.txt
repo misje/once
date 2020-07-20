@@ -5,7 +5,6 @@ cmake_policy(SET CMP0048 NEW)
 project(
 	once
 	VERSION 0.1.0
-	DESCRIPTION "Header-only framework implementing QObject::connect() fire-once-and-disconnect"
 	LANGUAGES CXX
 	)
 
