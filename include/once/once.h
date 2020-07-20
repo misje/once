@@ -157,10 +157,10 @@ std::enable_if<Helper::FuncMeta<Func>::IsFunctor>::type>
 	std::shared_ptr<QMetaObject::Connection> connection;
 	mutable int remainingCalls = 1;
 
-	AutoDisconnecter(Func &&func, int fireCount = 1) :
-		func(std::forward<Func>(func)),
+	AutoDisconnecter(Func &&func_, int fireCount_ = 1) :
+		func(std::forward<Func>(func_)),
 		connection(std::make_shared<QMetaObject::Connection>()),
-		remainingCalls(fireCount)
+		remainingCalls(fireCount_)
 	{
 	}
 
@@ -203,10 +203,10 @@ std::enable_if<!Helper::FuncMeta<Func>::IsFunctor>::type>
 	std::shared_ptr<QMetaObject::Connection> connection;
 	mutable int remainingCalls = 1;
 
-	AutoDisconnecter(Func &&func, int fireCount = 1) :
-		func(std::forward<Func>(func)),
+	AutoDisconnecter(Func &&func_, int fireCount_ = 1) :
+		func(std::forward<Func>(func_)),
 		connection(std::make_shared<QMetaObject::Connection>()),
-		remainingCalls(fireCount)
+		remainingCalls(fireCount_)
 	{
 	}
 
@@ -244,11 +244,11 @@ struct SlotAutoDisconnecter
 	std::shared_ptr<QMetaObject::Connection> connection;
 	mutable int remainingCalls = 1;
 
-	SlotAutoDisconnecter(Receiver *receiver, Slot &&slot, int fireCount = 1) :
-		receiver(receiver),
-		slot(std::forward<Slot>(slot)),
+	SlotAutoDisconnecter(Receiver *receiver_, Slot &&slot_, int fireCount_ = 1) :
+		receiver(receiver_),
+		slot(std::forward<Slot>(slot_)),
 		connection(std::make_shared<QMetaObject::Connection>()),
-		remainingCalls(fireCount)
+		remainingCalls(fireCount_)
 	{
 	}
 
@@ -354,4 +354,4 @@ QMetaObject::Connection connect(const Sender *sender, Signal signal, int callCou
 			disconnecter, type);
 }
 
-};
+}
