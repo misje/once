@@ -58,7 +58,7 @@ namespace Helper
 		 * from ArgList: */
 		struct CompatibleArgCountHelper<Func, List<FirstArg, Args...>, false> :
 		CompatibleArgCount<Func, typename ListLeft<List<FirstArg, Args...>,
-		sizeof...(Args)>::value> {};
+		static_cast<int>(sizeof...(Args))>::value> {};
 
 	template<typename Func, typename ...Args>
 		struct CompatibleArgCount<Func, List<Args...>>
