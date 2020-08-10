@@ -165,7 +165,7 @@ std::enable_if<Helper::FuncMeta<Func>::IsFunctor>::type>
 	}
 
 	template<typename ...Args>
-	void operator()(Args &&...args) const
+	void operator()(Args &&...args)
 	{
 		/* TODO: Figure out a better way of extracting n first arguments than
 		 * using a tuple and an integer sequence: */
@@ -189,7 +189,7 @@ std::enable_if<Helper::FuncMeta<Func>::IsFunctor>::type>
 	}
 
 	template<typename ...Args, int ...I>
-	void call(std::tuple<Args...>& tuple, Helper::Sequence<I...>) const
+	void call(std::tuple<Args...>& tuple, Helper::Sequence<I...>)
 	{
 		func(std::get<I>(tuple)...);
 	}
@@ -211,13 +211,13 @@ std::enable_if<!Helper::FuncMeta<Func>::IsFunctor>::type>
 	}
 
 	template<typename ...Args, int ...I>
-	void call(std::tuple<Args...>& tuple, Helper::Sequence<I...>) const
+	void call(std::tuple<Args...>& tuple, Helper::Sequence<I...>)
 	{
 		func(std::get<I>(tuple)...);
 	}
 
 	template<typename ...Args>
-	void operator()(Args &&...args) const
+	void operator()(Args &&...args)
 	{
 		/* TODO: Figure out a better way of extracting n first arguments than
 		 * using a tuple and an integer sequence: */
@@ -253,13 +253,13 @@ struct SlotAutoDisconnecter
 	}
 
 	template<typename ...Args, int ...I>
-	void call(std::tuple<Args...>& tuple, Helper::Sequence<I...>) const
+	void call(std::tuple<Args...>& tuple, Helper::Sequence<I...>)
 	{
 		(receiver->*slot)(std::get<I>(tuple)...);
 	}
 
 	template<typename ...Args>
-	void operator()(Args &&...args) const
+	void operator()(Args &&...args)
 	{
 		/* TODO: Figure out a better way of extracting n first arguments than
 		 * using a tuple and an integer sequence: */
