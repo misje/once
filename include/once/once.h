@@ -153,7 +153,7 @@ template<typename Func, typename Signal>
 struct AutoDisconnecter<Func, Signal, typename
 std::enable_if<Helper::FuncMeta<Func>::IsFunctor>::type>
 {
-	Func func;
+	typename std::remove_reference<Func>::type func;
 	std::shared_ptr<QMetaObject::Connection> connection;
 	mutable int remainingCalls = 1;
 
@@ -199,7 +199,7 @@ template<typename Func>
 struct AutoDisconnecter<Func, typename
 std::enable_if<!Helper::FuncMeta<Func>::IsFunctor>::type>
 {
-	Func func;
+	typename std::remove_reference<Func>::type func;
 	std::shared_ptr<QMetaObject::Connection> connection;
 	mutable int remainingCalls = 1;
 
